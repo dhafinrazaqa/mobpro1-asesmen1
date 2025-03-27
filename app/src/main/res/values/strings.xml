@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Aplikasi Konversi Mata Uang</string>
+    <string name="currency_intro">Konversi Mata Uang adalah cara mudah untuk menghitung nilai tukar antara Rupiah (IDR) dan mata uang lain seperti Dolar (USD).
+        Mulai sekarang!</string>
+    <string name="amount">Jumlah uang</string>
+    <string name="from_currency">Dari Mata Uang</string>
+    <string name="to_currency">Ke Mata Uang</string>
+    <string name="convert">Konversi</string>
+    <string name="swap">Tukar</string>
+    <string name="check_rates">Cek Nilai Tukar Terbaru</string>
+    <string name="result">Hasil Konversi</string>
 </resources>
