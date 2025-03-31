@@ -15,4 +15,7 @@
     <string name="dollar">$%1$.2f</string>
     <string name="euro">€%1$.2f</string>
     <string name="yen">¥%1$.2f</string>
+
+    <string name="input_invalid">Tidak boleh kosong</string>
+    <string name="same_currency_error">Mata uang asal dan tujuan tidak boleh sama</string>
 </resources>

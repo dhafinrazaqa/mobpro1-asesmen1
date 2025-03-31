@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -61,10 +64,18 @@ fun MainScreen() {
 
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
-    var jumlahUang by remember { mutableStateOf("") }
     val mataUang = listOf("IDR", "USD", "EUR", "JPY")
+
+    var jumlahUang by remember { mutableStateOf("") }
+    var jumlahUangError by remember { mutableStateOf(false) }
+
     var dariMataUang by remember { mutableStateOf<String?>(null) }
+    var dariMataUangError by remember { mutableStateOf(false) }
+
     var keMataUang by remember { mutableStateOf<String?>(null) }
+    var keMataUangError by remember { mutableStateOf(false) }
+
+    var mataUangSamaError by remember { mutableStateOf(false) }
 
     var expandedFrom by remember { mutableStateOf(false) }
     var expandedTo by remember { mutableStateOf(false) }
@@ -91,8 +102,10 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             onValueChange = { jumlahUang = it },
             label = { Text(text = stringResource(R.string.amount)) },
             trailingIcon = {
-                Text(text = dariMataUang ?: "")
+                IconPicker(jumlahUangError, dariMataUang ?: "")
             },
+            supportingText = { ErrorHint(jumlahUangError) },
+            isError = jumlahUangError,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -106,7 +119,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             onCurrencySelected = { dariMataUang = it },
             expanded = expandedFrom,
             onExpandedChange = { expandedFrom = it },
-            currencyOptions = mataUang
+            currencyOptions = mataUang,
+            isError = dariMataUangError,
+            sameCurrencyError = mataUangSamaError
         )
         CurrencyDropdown(
             label = stringResource(R.string.to_currency),
@@ -114,10 +129,19 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             onCurrencySelected = { keMataUang = it },
             expanded = expandedTo,
             onExpandedChange = { expandedTo = it },
-            currencyOptions = mataUang
+            currencyOptions = mataUang,
+            isError = keMataUangError,
+            sameCurrencyError = mataUangSamaError
         )
         Button(
             onClick = {
+                jumlahUangError = (jumlahUang == "" || jumlahUang == "0")
+                dariMataUangError = (dariMataUang == null)
+                keMataUangError = (keMataUang == null)
+                mataUangSamaError = (dariMataUang == keMataUang)
+
+                if (jumlahUangError || dariMataUangError || keMataUangError || mataUangSamaError) return@Button
+
                 hasilKonversi = konversiUang(
                     jumlahUang.toFloatOrNull() ?: 0f,
                     dariMataUang ?: "",
@@ -161,6 +185,8 @@ fun CurrencyDropdown(
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     currencyOptions: List<String>,
+    isError: Boolean,
+    sameCurrencyError: Boolean,
     modifier: Modifier = Modifier
 ) {
     ExposedDropdownMenuBox(
@@ -174,7 +200,20 @@ fun CurrencyDropdown(
             readOnly = true,
             label = { Text(label) },
             placeholder = { Text(label) },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            trailingIcon = {
+                if (isError || sameCurrencyError) {
+                    Icon(imageVector = Icons.Filled.Warning, contentDescription = null)
+                } else {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                }
+            },
+            supportingText = {
+                when {
+                    isError -> Text(stringResource(R.string.input_invalid))
+                    sameCurrencyError -> Text(stringResource(R.string.same_currency_error))
+                }
+            },
+            isError = isError || sameCurrencyError,
             modifier = Modifier
                 .menuAnchor()
                 .fillMaxWidth()
@@ -213,6 +252,22 @@ private fun getSymbol(mataUang: String): Int {
         "EUR" -> R.string.euro
         "JPY" -> R.string.yen
         else -> 0
+    }
+}
+
+@Composable
+fun IconPicker(isError: Boolean, unit: String) {
+    if (isError) {
+        Icon(imageVector = Icons.Filled.Warning, contentDescription = null)
+    } else {
+        Text(text = unit)
+    }
+}
+
+@Composable
+fun ErrorHint(isError: Boolean) {
+    if (isError) {
+        Text(text = stringResource(R.string.input_invalid))
     }
 }
 
