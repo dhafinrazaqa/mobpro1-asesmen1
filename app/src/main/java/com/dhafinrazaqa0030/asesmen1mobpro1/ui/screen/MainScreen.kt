@@ -15,6 +15,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -23,6 +24,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -65,6 +68,10 @@ fun ScreenContent(modifier: Modifier = Modifier) {
 
     var expandedFrom by remember { mutableStateOf(false) }
     var expandedTo by remember { mutableStateOf(false) }
+
+    var hasilKonversi by remember { mutableFloatStateOf(0f) }
+    var simbolPertama by remember { mutableIntStateOf(0) }
+    var simbolKedua by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
@@ -110,11 +117,37 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             currencyOptions = mataUang
         )
         Button(
-            onClick = {},
+            onClick = {
+                hasilKonversi = konversiUang(
+                    jumlahUang.toFloatOrNull() ?: 0f,
+                    dariMataUang ?: "",
+                    keMataUang ?: ""
+                ) ?: 0f
+                simbolPertama = getSymbol(dariMataUang ?: "")
+                simbolKedua = getSymbol(keMataUang ?: "")
+            },
             modifier = Modifier.padding(top = 8.dp),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Text(text = stringResource(R.string.convert))
+        }
+        if (hasilKonversi != 0f) {
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp
+            )
+            Text(
+                text = stringResource(R.string.result_title),
+                style = MaterialTheme.typography.headlineLarge
+            )
+            Text(
+                text = stringResource(
+                    R.string.result,
+                    stringResource(simbolPertama, jumlahUang.toFloat()),
+                    stringResource(simbolKedua, hasilKonversi)
+                ),
+                style = MaterialTheme.typography.titleLarge
+            )
         }
     }
 }
@@ -160,6 +193,26 @@ fun CurrencyDropdown(
                 )
             }
         }
+    }
+}
+
+private fun konversiUang(jumlah: Float, dari: String, ke: String): Float? {
+    val rates = mapOf(
+        "IDR" to mapOf("USD" to 0.00006039f, "EUR" to 0.00005592f, "JPY" to 0.009046f),
+        "USD" to mapOf("IDR" to 16560f, "EUR" to 0.9259f, "JPY" to 149.8f),
+        "EUR" to mapOf("IDR" to 17890f, "USD" to 1.080f, "JPY" to 161.8f),
+        "JPY" to mapOf("IDR" to 110.6f, "USD" to 0.006678f, "EUR" to 0.006180f)
+    )
+    return rates[dari]?.get(ke)?.times(jumlah)
+}
+
+private fun getSymbol(mataUang: String): Int {
+    return when (mataUang) {
+        "IDR" -> R.string.rupiah
+        "USD" -> R.string.dollar
+        "EUR" -> R.string.euro
+        "JPY" -> R.string.yen
+        else -> 0
     }
 }
 

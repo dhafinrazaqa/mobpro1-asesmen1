@@ -8,5 +8,11 @@
     <string name="convert">Konversi</string>
     <string name="swap">Tukar</string>
     <string name="check_rates">Cek Nilai Tukar Terbaru</string>
-    <string name="result">Hasil Konversi</string>
+    <string name="result_title">Hasil Konversi:</string>
+    <string name="result">%1$s = %2$s</string>
+
+    <string name="rupiah">Rp. %1$.2f</string>
+    <string name="dollar">$%1$.2f</string>
+    <string name="euro">€%1$.2f</string>
+    <string name="yen">¥%1$.2f</string>
 </resources>
