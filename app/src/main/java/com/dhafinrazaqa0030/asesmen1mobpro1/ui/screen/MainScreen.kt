@@ -33,7 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -83,23 +83,23 @@ fun MainScreen(navController: NavHostController) {
 fun ScreenContent(modifier: Modifier = Modifier) {
     val mataUang = listOf("IDR", "USD", "EUR", "JPY")
 
-    var jumlahUang by remember { mutableStateOf("") }
-    var jumlahUangError by remember { mutableStateOf(false) }
+    var jumlahUang by rememberSaveable { mutableStateOf("") }
+    var jumlahUangError by rememberSaveable { mutableStateOf(false) }
 
-    var dariMataUang by remember { mutableStateOf<String?>(null) }
-    var dariMataUangError by remember { mutableStateOf(false) }
+    var dariMataUang by rememberSaveable { mutableStateOf<String?>(null) }
+    var dariMataUangError by rememberSaveable { mutableStateOf(false) }
 
-    var keMataUang by remember { mutableStateOf<String?>(null) }
-    var keMataUangError by remember { mutableStateOf(false) }
+    var keMataUang by rememberSaveable { mutableStateOf<String?>(null) }
+    var keMataUangError by rememberSaveable { mutableStateOf(false) }
 
-    var mataUangSamaError by remember { mutableStateOf(false) }
+    var mataUangSamaError by rememberSaveable { mutableStateOf(false) }
 
-    var expandedFrom by remember { mutableStateOf(false) }
-    var expandedTo by remember { mutableStateOf(false) }
+    var expandedFrom by rememberSaveable { mutableStateOf(false) }
+    var expandedTo by rememberSaveable { mutableStateOf(false) }
 
-    var hasilKonversi by remember { mutableFloatStateOf(0f) }
-    var simbolPertama by remember { mutableIntStateOf(0) }
-    var simbolKedua by remember { mutableIntStateOf(0) }
+    var hasilKonversi by rememberSaveable { mutableFloatStateOf(0f) }
+    var simbolPertama by rememberSaveable { mutableIntStateOf(0) }
+    var simbolKedua by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
