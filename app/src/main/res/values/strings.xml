@@ -20,6 +20,9 @@
     <string name="input_invalid">Tidak boleh kosong</string>
     <string name="same_currency_error">Mata uang asal dan tujuan tidak boleh sama</string>
 
+    <string name="share">Bagikan</string>
+    <string name="share_template">Hasil Konversi Mata Uang:\n%1$s</string>
+
     <string name="about">Tentang Aplikasi</string>
     <string name="copyright">Aplikasi Konversi Mata Uang adalah aplikasi Android yang membantu pengguna mengonversi nilai mata uang dari satu jenis ke jenis lainnya dengan mudah dan cepat.
         \n\nAplikasi ini dibuat untuk kelas Pemrograman untuk Perangkat Bergerak sebagai bagian dari tugas asesmen pertama.
