@@ -18,6 +18,6 @@
     <string name="share">Bagikan</string>
     <string name="share_template">Hasil Konversi Mata Uang:\n%1$s</string>
     <string name="about">Tentang Aplikasi</string>
-    <string name="copyright">Aplikasi Konversi Mata Uang adalah aplikasi Android yang membantu pengguna mengonversi nilai mata uang dari satu jenis ke jenis lainnya dengan mudah dan cepat.\n\nAplikasi ini dibuat untuk kelas Pemrograman untuk Perangkat Bergerak sebagai bagian dari tugas asesmen pertama.\n\nData nilai tukar mata uang diperoleh dari https://wise.com/gb/currency-converter dan diperbarui sejak 31 Maret 2025.\n\nCopyright © 2024-2025 Dhafin Razaqa Lesmana Putra.\nAll rights reserved.</string>
+    <string name="copyright">Aplikasi Konversi Mata Uang adalah aplikasi Android yang membantu pengguna mengonversi nilai mata uang dari satu jenis ke jenis lainnya dengan mudah dan cepat.\n\nAplikasi ini dibuat untuk kelas Pemrograman untuk Perangkat Bergerak sebagai bagian dari tugas asesmen pertama.\n\nData nilai tukar mata uang diperoleh dari https://wise.com/gb/currency–converter dan diperbarui sejak 31 Maret 2025.\n\nCopyright © 2024–2025 Dhafin Razaqa Lesmana Putra.\nAll rights reserved.</string>
     <string name="back">Kembali</string>
 </resources>

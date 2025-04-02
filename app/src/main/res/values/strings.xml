@@ -21,6 +21,6 @@
     <string name="share_template">Currency Conversion Result:\n%1$s</string>
 
     <string name="about">About the app</string>
-    <string name="copyright">The Currency Conversion App is an Android application that helps users easily and quickly convert currency values from one type to another.\n\nThis application was created for the Mobile Programming class as part of the first assessment assignment.\n\nCurrency exchange rate data is obtained from https://wise.com/gb/currency-converter and updated as of March 31, 2025.\n\nCopyright © 2024-2025 Dhafin Razaqa Lesmana Putra.\nAll rights reserved.</string>
+    <string name="copyright">The Currency Conversion App is an Android application that helps users easily and quickly convert currency values from one type to another.\n\nThis application was created for the Mobile Programming class as part of the first assessment assignment.\n\nCurrency exchange rate data is obtained from https://wise.com/gb/currency–converter and updated as of March 31, 2025.\n\nCopyright © 2024–2025 Dhafin Razaqa Lesmana Putra.\nAll rights reserved.</string>
     <string name="back">Back</string>
 </resources>
